@@ -3,7 +3,7 @@ from decimal import Decimal
 from typing import Optional
 from datetime import datetime
 
-from enums import (
+from src.models.enums import (
     BillType,
     Locale,
     BillCurrency,
@@ -13,10 +13,13 @@ from enums import (
     PaymentCurrency,
     PayoutCurrency,
     PayoutAccountType,
-    PayoutStatus
+    PayoutStatus,
+    RefundStatus,
+    RefundCurrency,
+    EntityType,
 )
 
-from data import (
+from src.models.data import (
     RequestField,
     Item,
     Payment,
@@ -27,7 +30,7 @@ from data import (
     Chargeback,
     Balance,
     Payout,
-    SBPBank
+    SBPBank,
 )
 
 class BillCreateRequest(BaseModel):
@@ -247,3 +250,49 @@ class PayoutSPBBanksResponse(BaseModel):
     
 
 # TODO: Refund, Postback
+
+# =============================================================================
+# Refund Models
+# =============================================================================
+
+class RefundFullCreateRequest(BaseModel):
+    """Запрос на полный возврат средств"""
+    payment_id: str = Field(description='Уникальный идентификатор платежа')
+
+
+class RefundPartialCreateRequest(BaseModel):
+    """Запрос на частичный возврат средств"""
+    payment_id: str = Field(description='Уникальный идентификатор платежа')
+    amount: Decimal = Field(description='Сумма возврата')
+
+
+class RefundSearchRequest(BaseModel):
+    """Запрос на поиск возвратов"""
+    payment_id: Optional[str] = Field(description='ID платежа', default=None)
+    per_page: Optional[int] = Field(description='Количество элементов на странице', default=None)
+    cursor: Optional[str] = Field(description='Указатель на страницу', default=None)
+
+
+class RefundSearchResponse(BaseModel):
+    """Ответ на поиск возвратов"""
+    success: Optional[bool] = Field(description='Флаг успешности запроса', default=None)
+    data: Optional[list[Refund]] = Field(description='Массив возвратов', default=None)
+    links: Optional[PaginationLinks] = Field(description='Ссылки для пагинации', default=None)
+    meta: Optional[PaginationMeta] = Field(description='Мета данные пагинации', default=None)
+
+
+class RefundStatusRequest(BaseModel):
+    """Запрос на получение статуса возврата"""
+    id: str = Field(description='Уникальный идентификатор возврата')
+
+
+class RefundStatusResponse(BaseModel):
+    """Ответ со статусом возврата"""
+    id: Optional[str] = Field(description='Уникальный идентификатор возврата', default=None)
+    status: Optional[RefundStatus] = Field(description='Статус возврата', default=None)
+    amount: Optional[Decimal] = Field(description='Сумма возврата', default=None)
+    currency: Optional[RefundCurrency] = Field(description='Валюта', default=None)
+    entity_type: Optional[EntityType] = Field(description='Тип возврата', default=None)
+    entity_id: Optional[str] = Field(description='Уникальный идентификатор платежа', default=None)
+    created_at: Optional[datetime] = Field(description='Дата и время создания возврата', default=None)
+    success: Optional[bool] = Field(description='Флаг успешности запроса', default=None)
