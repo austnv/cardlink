@@ -1,0 +1,19 @@
+[project]
+name = "cardlink-api"
+version = "0.1.0"
+description = "Async wrapper for the Cardlink API in Python"
+authors = [
+    {name = "Alexey Ustinov", email = "austnv@proton.me"}
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+keywords = ["cardlink", "api", "async", "httpx", "pydantic"]
+requires-python = ">=3.14"
+dependencies = [
+    "httpx[cli]>=0.28.1",
+    "pydantic>=2.13.3",
+]
+
+# [build-system]
+# requires = ["hatchling"]
+# build-backend = "hatchling.build"
