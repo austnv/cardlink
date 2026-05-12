@@ -12,7 +12,8 @@ from enums import (
     PaymentStatus,
     PaymentCurrency,
     PayoutCurrency,
-    PayoutAccountType
+    PayoutAccountType,
+    PayoutStatus
 )
 
 from data import (
@@ -25,7 +26,8 @@ from data import (
     Refund,
     Chargeback,
     Balance,
-    Payout
+    Payout,
+    SBPBank
 )
 
 class BillCreateRequest(BaseModel):
@@ -202,4 +204,46 @@ class PayoutRegularCreateResponse(BaseModel):
 
 
 class PayoutSearchRequest(BaseModel):
-    ...
+    start_date: Optional[datetime] = Field(description='Начальная датавремя для получения выплат в UTC', default=None)
+    finish_date: Optional[datetime] = Field(description='Конечная датавремя для получения выплат в UTC', default=None)
+    per_page: Optional[int] = Field(description='Количество элементов на странице', default=None)
+    cursor: Optional[str] = Field(description='Указатель на страницу', default=None)
+
+
+class PayoutSearchResponse(BaseModel):
+    success: Optional[bool] = Field(description='Флаг успешности запроса', default=None)
+    data: Optional[list[Payout]] = Field(description='Массив выплат', default=None)
+    success: Optional[bool] = Field(description='', default=None)
+    success: Optional[bool] = Field(description='', default=None)
+    links: Optional[list[PaginationLinks]] = Field(description='Ссылки для пагинации', default=None)
+    meta: Optional[list[PaginationMeta]] = Field(description='Мета данные пагинации', default=None)
+
+
+class PayoutStatusRequest(BaseModel):
+    id: Optional[str] = Field(description='Уникальный идентификатор выплаты. Обязателен, если не передан order_id', default=None)
+    order_id: Optional[str] = Field(description='Уникальный идентификатор заказа. Обязателен, если не передан id', default=None)
+
+
+class PayoutStatusResponse(BaseModel):
+    id: Optional[str] = Field(description='Уникальный идентификатор выплаты', default=None)
+    status: Optional[PayoutStatus] = Field(description='Статус выплаты', default=None)
+    order_id: Optional[str] = Field(description='Уникальный идентификатор заказа', default=None)
+    account_identifier: Optional[str] = Field(description='Платежный аккаунт, на который производится выплата', default=None)
+    amount: Optional[Decimal] = Field(description='В случае recipient_pays_commission:false поле amount - сумма выплаты с учетом комиссии, в случае recipient_pays_commission:true поле amount - оригинальная сумма выплаты', default=None)
+    account_amount: Optional[Decimal] = Field(description='Сумма, списанная с баланса', default=None)
+    commission: Optional[Decimal] = Field(description='Комиссия сервиса', default=None)
+    account_commission: Optional[Decimal] = Field(description='Комиссия сервиса в валюте баланса', default=None)
+    currency: Optional[PayoutCurrency] = Field(description='Валюта выплаты', default=None)
+    account_currency: Optional[PayoutCurrency] = Field(description='Валюта баланса', default=None)
+    created_at: Optional[datetime] = Field(description='Дата и время создания выплаты', default=None)
+    error_code: Optional[int] = Field(description='Код ошибки', default=None)
+    error_message: Optional[int] = Field(description='Описание ошибки', default=None)
+    success: Optional[bool] = Field(description='Флаг успешности запроса', default=None)
+
+
+class PayoutSPBBanksResponse(BaseModel):
+    data: Optional[list[SBPBank]] = Field(description='Массив банков', default=None)
+    success: Optional[bool] = Field(description='Флаг успешности запроса', default=None)
+    
+
+# TODO: Refund, Postback
