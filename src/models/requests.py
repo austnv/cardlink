@@ -257,18 +257,44 @@ class PayoutSPBBanksResponse(BaseModel):
 
 class RefundFullCreateRequest(BaseModel):
     """Запрос на полный возврат средств"""
-    payment_id: str = Field(description='Уникальный идентификатор платежа')
+    payment_id: str = Field(description='Уникальный идентификатор платежа', default=None)
+    order_id: Optional[str] = Field(description='Идентификатор заказа на вашей стороне. Будет возвращен в postback.', default=None)
+
+
+class RefundFullCreateResponse(BaseModel):
+    id: Optional[str] = Field(description='Уникальный идентификатор возврата', default=None)
+    status: Optional[RefundStatus] = Field(description='Статус возврата', default=None)
+    amount: Optional[Decimal] = Field(description='Сумма возврата', default=None)
+    currency: Optional[RefundCurrency] = Field(description='Валюта', default=None)
+    entity_type: Optional[str] = Field(description='Тип возврата', default=None)
+    entity_id: Optional[str] = Field(description='Уникальный идентификатор платежа, по которому производится возврат', default=None)
+    created_at: Optional[datetime] = Field(description='Дата и время создания возврата', default=None)
+    success: Optional[bool] = Field(description='Флаг успешности запроса', default=None)
 
 
 class RefundPartialCreateRequest(BaseModel):
     """Запрос на частичный возврат средств"""
-    payment_id: str = Field(description='Уникальный идентификатор платежа')
-    amount: Decimal = Field(description='Сумма возврата')
+    payment_id: str = Field(description='Уникальный идентификатор платежа', default=None)
+    amount: Decimal = Field(description='Сумма возврата', default=None)
+    order_id: Optional[str] = Field(description='Идентификатор заказа на вашей стороне. Будет возвращен в postback.', default=None)
+
+
+class RefundPartialCreateResponse(BaseModel):
+    id: Optional[str] = Field(description='Уникальный идентификатор возврата', default=None)
+    status: Optional[RefundStatus] = Field(description='Статус возврата', default=None)
+    amount: Optional[Decimal] = Field(description='Сумма возврата', default=None)
+    currency: Optional[RefundCurrency] = Field(description='Валюта', default=None)
+    entity_type: Optional[str] = Field(description='Тип возврата', default=None)
+    entity_id: Optional[str] = Field(description='Уникальный идентификатор платежа, по которому производится возврат', default=None)
+    created_at: Optional[datetime] = Field(description='Дата и время создания возврата', default=None)
+    success: Optional[bool] = Field(description='Флаг успешности запроса', default=None)
 
 
 class RefundSearchRequest(BaseModel):
     """Запрос на поиск возвратов"""
     payment_id: Optional[str] = Field(description='ID платежа', default=None)
+    start_date: Optional[datetime] = Field(description='Начальная датавремя для получения возвратов в UTC', default=None)
+    finish_date: Optional[datetime] = Field(description='Конечная датавремя для получения возвратов в UTC', default=None)
     per_page: Optional[int] = Field(description='Количество элементов на странице', default=None)
     cursor: Optional[str] = Field(description='Указатель на страницу', default=None)
 
