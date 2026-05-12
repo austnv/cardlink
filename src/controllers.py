@@ -11,7 +11,16 @@ from models.requests import (
     BillStatusRequest, BillStatusResponse,
     PaymentSearchRequest, PaymentSearchResponse,
     PaymentStatusRequest, PaymentStatusResponse,
-    MerchantBalanceResponse
+    MerchantBalanceResponse,
+    PayoutPersonalCreateRequest,
+    PayoutPersonalCreateResponse,
+    PayoutRegularCreateRequest,
+    PayoutRegularCreateResponse,
+    PayoutSearchRequest,
+    PayoutSearchResponse,
+    PayoutStatusRequest,
+    PayoutStatusResponse,
+    PayoutSPBBanksResponse
 )
 from models.data import Payout
 
@@ -76,6 +85,35 @@ class BalanceController(BaseAPIController):
         return MerchantBalanceResponse.model_validate(response.json())
 
 
+class PayoutController(BaseAPIController):
+    async def create_personal(self, data: PayoutPersonalCreateRequest) -> PayoutPersonalCreateResponse:
+        """Создать выплату на привязанный платежный аккаунт"""
+        response = await self.client._request("POST", "/payout/personal/create", json=data.model_dump(exclude_none=True))
+        return PayoutPersonalCreateResponse.model_validate(response.json())
+    
+    async def regular_create(self, data: PayoutRegularCreateRequest) -> PayoutRegularCreateResponse:
+        """Отправить средства на указанные реквизиты"""
+        response = await self.client._request("POST", "/payout/regular/create", json=data.model_dump(exclude_none=True))
+        return PayoutRegularCreateResponse.model_validate(response.json())
+    
+    async def search(self, data: PayoutSearchRequest) -> PayoutSearchResponse:
+        """Получить выплаты"""
+        params = data.model_dump(exclude_none=True)
+        response = await self.client._request("GET", "/payout/search", params=params)
+        return PayoutSearchResponse.model_validate(response.json())
+
+    async def status(self, data: PayoutStatusRequest) -> PayoutStatusResponse:
+        """Получить статус выплаты"""
+        params = {k: v for k, v in data.model_dump(exclude_none=True).items()}
+        response = await self.client._request("GET", "/payout/status", params=params)
+        return PayoutStatusResponse.model_validate(response.json())
+    
+    async def spb_banks(self) -> PayoutSPBBanksResponse:
+        """Получить список банков, доступных для СБП выплат"""
+        response = await self.client._request("GET", "/payout/dictionaries/sbp_banks")
+        return PayoutSPBBanksResponse.model_validate(response.json())
+
+
 class CardLinkClient:
     """
     Главный асинхронный клиент API CardLink.
@@ -104,6 +142,7 @@ class CardLinkClient:
         self.bill = BillController(self)
         self.payment = PaymentController(self)
         self.balance = BalanceController(self)
+        self.payout = PayoutController(self)
 
     async def _request(self, method: str, path: str, **kwargs) -> httpx.Response:
         """Внутренний асинхронный метод выполнения HTTP-запросов"""
