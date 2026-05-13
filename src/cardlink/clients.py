@@ -19,22 +19,16 @@ class CardLinkAsyncClient:
     """
     Асинхронный клиент API CardLink.
     
-    Клиент можно инициализировать один раз и использовать многократно,
-    либо использовать как контекстный менеджер.
+    Клиент можно инициализировать один раз и использовать многократно.
     
     Примеры использования:
-    
-        # Вариант 1: Инициализация и ручное закрытие
-        client = CardLinkAsyncClient(api_key="your_key")
-        await client.initialize()
         
+        from cadlink import CardLinkAsyncClient
+
+        client = CardLinkAsyncClient(api_key="your_key")    
         bill = await client.bill.create(BillCreateRequest(amount=100.0, shop_id="shop_123"))
-        
-        await client.close()
-        
-        # Вариант 2: Контекстный менеджер (рекомендуется)
-        async with CardLinkAsyncClient(api_key="your_key") as client:
-            bill = await client.bill.create(BillCreateRequest(amount=100.0, shop_id="shop_123"))
+
+    
     """
     
     def __init__(self, api_key: str, base_url: str = "https://cardlink.link/api/v1"):
@@ -42,6 +36,7 @@ class CardLinkAsyncClient:
         
         Args:
             api_key: API ключ для авторизации
+            
             base_url: Базовый URL API (по умолчанию https://cardlink.link/api/v1)
         """
         self.api_key = api_key
@@ -59,7 +54,6 @@ class CardLinkAsyncClient:
         """Инициализация HTTP сессии
         
         Вызывается автоматически при использовании контекстного менеджера
-        или может быть вызвана явно перед первым запросом.
         """
         if self._session is None:
             self._session = httpx.AsyncClient(
@@ -106,21 +100,14 @@ class CardLinkSyncClient:
     """
     Синхронный клиент API CardLink.
     
-    Клиент можно инициализировать один раз и использовать многократно,
-    либо использовать как контекстный менеджер.
+    Клиент можно инициализировать один раз и использовать многократно.
     
     Примеры использования:
     
-        # Вариант 1: Инициализация и ручное закрытие
+        from cardlink import CardLinkSyncClient
+    
         client = CardLinkSyncClient(api_key="your_key")
-        
         bill = client.bill.create(BillCreateRequest(amount=100.0, shop_id="shop_123"))
-        
-        client.close()
-        
-        # Вариант 2: Контекстный менеджер (рекомендуется)
-        with CardLinkSyncClient(api_key="your_key") as client:
-            bill = client.bill.create(BillCreateRequest(amount=100.0, shop_id="shop_123"))
     """
     
     def __init__(self, api_key: str, base_url: str = "https://cardlink.link/api/v1"):
@@ -128,6 +115,7 @@ class CardLinkSyncClient:
         
         Args:
             api_key: API ключ для авторизации
+
             base_url: Базовый URL API (по умолчанию https://cardlink.link/api/v1)
         """
         self.api_key = api_key
