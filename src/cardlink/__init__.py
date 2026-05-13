@@ -20,8 +20,8 @@ CardLink API Client - Асинхронный и синхронный клиен�
     bill = client.bill.create(BillCreateRequest(amount=100.0, shop_id="shop_123"))
 """
 
-from .controllers import CardLinkAsyncClient, CardLinkSyncClient
-from .models import requests, data, enums
+from clients import CardLinkAsyncClient, CardLinkSyncClient
+from models import requests, data, enums
 
 __version__ = "0.1.0"
 __author__ = "austnv"
