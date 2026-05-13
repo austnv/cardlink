@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Wrapper for the Cardlink API in Python"
 readme = "README.md"
 keywords = ["cardlink", "api", "async", "httpx", "pydantic"]
-requires-python = ">=3.14"
+requires-python = ">=3.10"
 dependencies = [
     "httpx[cli]>=0.28.1",
     "pydantic>=2.13.3",
