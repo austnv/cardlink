@@ -1,11 +1,7 @@
 [project]
 name = "cardlink-api"
 version = "0.1.0"
-description = "Async wrapper for the Cardlink API in Python"
-authors = [
-    {name = "Alexey Ustinov", email = "austnv@proton.me"}
-]
-license = { file = "LICENSE" }
+description = "Wrapper for the Cardlink API in Python"
 readme = "README.md"
 keywords = ["cardlink", "api", "async", "httpx", "pydantic"]
 requires-python = ">=3.14"
