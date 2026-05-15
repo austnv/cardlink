@@ -1,7 +1,7 @@
 import httpx
 from typing import Optional
 
-from controllers import (
+from .controllers import (
     BalanceController,
     BillController,
     PayoutController,
@@ -23,7 +23,7 @@ class CardLinkAsyncClient:
     
     Примеры использования:
         
-        from cadlink import CardLinkAsyncClient
+        from pycadlink import CardLinkAsyncClient
 
         client = CardLinkAsyncClient(api_key="your_key")    
         bill = await client.bill.create(BillCreateRequest(amount=100.0, shop_id="shop_123"))
@@ -104,7 +104,7 @@ class CardLinkSyncClient:
     
     Примеры использования:
     
-        from cardlink import CardLinkSyncClient
+        from pycardlink import CardLinkSyncClient
     
         client = CardLinkSyncClient(api_key="your_key")
         bill = client.bill.create(BillCreateRequest(amount=100.0, shop_id="shop_123"))
