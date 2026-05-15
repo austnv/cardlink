@@ -6,7 +6,7 @@ readme = "README.md"
 keywords = ["cardlink", "api", "async", "httpx", "pydantic"]
 requires-python = ">=3.10"
 dependencies = [
-    "httpx[cli]>=0.28.1",
+    "httpx>=0.28.1",
     "pydantic>=2.13.3",
 ]
 authors = [
