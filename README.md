@@ -98,7 +98,7 @@ print(f"Счёт создан: {bill.link_url}")
 ### Структура проекта
 
 ```
-src/pycardlink/
+pycardlink/
 ├── __init__.py          # Точка входа, версия, экспорт
 ├── clients.py           # Асинхронный (CardLinkAsyncClient) и синхронный (CardLinkSyncClient) клиенты
 ├── controllers.py       # Контроллеры для каждого раздела API (Bill, Payment, Payout, Refund, Balance)
