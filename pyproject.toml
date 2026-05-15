@@ -1,6 +1,6 @@
 [project]
 name = "pycardlink"
-version = "0.1.0"
+dynamic = ["version"]
 description = "Wrapper for the Cardlink API in Python"
 readme = "README.md"
 keywords = ["cardlink", "api", "async", "httpx", "pydantic"]
@@ -9,6 +9,20 @@ dependencies = [
     "httpx[cli]>=0.28.1",
     "pydantic>=2.13.3",
 ]
+authors = [
+    {name = "austnv", email = "austnv@proton.me"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Framework :: Pydantic",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14"
+]
 
 [build-system]
 requires = ["hatchling"]
@@ -16,3 +30,12 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["pycardlink"]
+
+[tool.hatch.version]
+path = "pycardlink/__about__.py"
+
+[project.urls]
+Homepage = "https://github.com/austnv/pycardlink"
+Documentation = "https://github.com/austnv/pycardlink#readme"
+Repository = "https://github.com/austnv/pycardlink.git"
+Issues = "https://github.com/austnv/pycardlink/issues"
