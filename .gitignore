@@ -6,9 +6,6 @@ dist/
 wheels/
 *.egg-info
 *.bak
-fix.py
 
 # Virtual environments
 .venv
-
-sign
