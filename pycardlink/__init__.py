@@ -23,8 +23,6 @@ CardLink API Client - Асинхронный и синхронный клиен�
 from .clients import CardLinkAsyncClient, CardLinkSyncClient
 from .models import requests, data, enums
 
-__version__ = "0.1.0"
-__author__ = "austnv"
 __all__ = [
     "CardLinkAsyncClient",
     "CardLinkSyncClient",
