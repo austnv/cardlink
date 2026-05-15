@@ -2,7 +2,7 @@
 
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![PyPI version](https://badge.fury.io/py/cardlink.svg)](https://pypi.org/project/cardlink/)
+[![PyPI version](https://badge.fury.io/py/pycardlink.svg)](https://pypi.org/project/pycardlink/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 **Асинхронный и синхронный Python-клиент для [CardLink API](https://cardlink.link/reference/api).**
@@ -27,13 +27,13 @@
 Убедитесь, что у вас установлен Python 3.10 или выше. Затем выполните:
 
 ```bash
-pip install cardlink
+pip install pycardlink
 ```
 
 Либо, если вы используете `uv`:
 
 ```bash
-uv add cardlink
+uv add pycardlink
 ```
 
 ---
@@ -50,8 +50,8 @@ uv add cardlink
 
 ```python
 import asyncio
-from cardlink import CardLinkAsyncClient
-from cardlink.models.requests import BillCreateRequest
+from pycardlink import CardLinkAsyncClient
+from pycardlink.models.requests import BillCreateRequest
 
 async def main():
     client = CardLinkAsyncClient(api_key="your_api_key")
@@ -74,8 +74,8 @@ asyncio.run(main())
 ### 3. Создание счета (синхронный клиент)
 
 ```python
-from cardlink import CardLinkSyncClient
-from cardlink.models.requests import BillCreateRequest
+from pycardlink import CardLinkSyncClient
+from pycardlink.models.requests import BillCreateRequest
 
 client = CardLinkSyncClient(api_key="your_api_key")
 
@@ -98,7 +98,7 @@ print(f"Счёт создан: {bill.link_url}")
 ### Структура проекта
 
 ```
-src/cardlink/
+src/pycardlink/
 ├── __init__.py          # Точка входа, версия, экспорт
 ├── clients.py           # Асинхронный (CardLinkAsyncClient) и синхронный (CardLinkSyncClient) клиенты
 ├── controllers.py       # Контроллеры для каждого раздела API (Bill, Payment, Payout, Refund, Balance)
@@ -123,13 +123,13 @@ src/cardlink/
 
 ### Модели запросов и ответов
 
-Все модели находятся в пакете `cardlink.models.requests` и `cardlink.models.data`. Благодаря Pydantic вы получаете автоматическую валидацию данных, подсказки в IDE и сериализацию/десериализацию.
+Все модели находятся в пакете `pycardlink.models.requests` и `pycardlink.models.data`. Благодаря Pydantic вы получаете автоматическую валидацию данных, подсказки в IDE и сериализацию/десериализацию.
 
 Пример:
 
 ```python
-from cardlink.models.requests import PaymentSearchRequest
-from cardlink.models.enums import PaymentStatus
+from pycardlink.models.requests import PaymentSearchRequest
+from pycardlink.models.enums import PaymentStatus
 
 search = PaymentSearchRequest(
     bill_id="bill_123",
@@ -162,8 +162,8 @@ except ConnectionError as e:
 
 1. Клонируйте репозиторий:
    ```bash
-   git clone https://github.com/austnv/cardlink.git
-   cd cardlink
+   git clone https://github.com/austnv/pycardlink.git
+   cd pycardlink
    ```
 
 2. Установите зависимости:
@@ -192,4 +192,4 @@ except ConnectionError as e:
 
 - [Документация CardLink API](https://cardlink.link/reference/api)
 - [Официальный сайт CardLink](https://cardlink.link/)
-- [Репозиторий на GitHub](https://github.com/austnv/cardlink)
+- [Репозиторий на GitHub](https://github.com/austnv/pycardlink)
