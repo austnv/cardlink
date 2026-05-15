@@ -7,7 +7,7 @@ from decimal import Decimal
 from datetime import datetime
 from typing import Optional, Any
 
-from models.enums import (
+from ..models.enums import (
     BillStatus,
     BillType,
     BillCurrency,

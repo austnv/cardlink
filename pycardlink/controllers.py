@@ -1,6 +1,6 @@
 from httpx import Response
 
-from models.requests import (
+from .models.requests import (
     BillCreateRequest, BillCreateResponse,
     BillToggleActivityRequest, BillToggleActivityResponse,
     BillPaymentsRequest, BillPaymentResponse,

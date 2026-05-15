@@ -3,7 +3,7 @@ from decimal import Decimal
 from typing import Optional
 from datetime import datetime
 
-from models.enums import (
+from ..models.enums import (
     BillType,
     Locale,
     BillCurrency,
@@ -19,7 +19,7 @@ from models.enums import (
     EntityType,
 )
 
-from models.data import (
+from ..models.data import (
     RequestField,
     Item,
     Payment,
