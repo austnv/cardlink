@@ -3,7 +3,7 @@
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PyPI version](https://badge.fury.io/py/pycardlink.svg)](https://pypi.org/project/pycardlink/)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/pycardlink)](https://pypi.org/project/pycardlink/)
 
 **Асинхронный и синхронный Python-клиент для [CardLink API](https://cardlink.link/reference/api).**
 
